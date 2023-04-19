@@ -39,7 +39,12 @@ public class CriarContaController {
 			usuario.setMatricula(request.getParameter("id_user"));
 			
 			UsuarioRepository usuarioRepository = new UsuarioRepository();
-			usuarioRepository.save(usuario);
+			if(usuario.getTipo() == TipoUsuarioEnum.YES) {
+				usuarioRepository.saveFuncionario(usuario);
+			}else {
+				usuarioRepository.saveUsuario(usuario);
+			}
+			
 			
 			modelAndView.addObject("mensagem_sucesso", "User Created");
 			
